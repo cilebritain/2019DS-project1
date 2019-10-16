@@ -15,12 +15,12 @@
                   <Font name="Consolas" size="50.0" />
                </font>
             </Text>
-            <JFXButton buttonType="RAISED" layoutX="289.0" layoutY="130.0" prefHeight="70.0" prefWidth="250.0" text="compression">
+            <JFXButton fx:id="com_button" buttonType="RAISED" layoutX="289.0" layoutY="130.0" onAction="#to_compression" prefHeight="70.0" prefWidth="250.0" text="compression">
                <font>
                   <Font name="Consolas" size="24.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="d" buttonType="RAISED" layoutX="289.0" layoutY="200.0" prefHeight="70.0" prefWidth="250.0" text="decompression">
+            <JFXButton fx:id="decom_button" buttonType="RAISED" layoutX="289.0" layoutY="200.0" onAction="#to_decompression" prefHeight="70.0" prefWidth="250.0" text="decompression">
                <font>
                   <Font name="Consolas" size="24.0" />
                </font>
