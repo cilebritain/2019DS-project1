@@ -11,7 +11,6 @@ public class decompress {
     private static int[] rs = new int[1001];
 
     public static int bytes2int(byte a, byte b, byte c, byte d){
-        //System.out.printf("%x %x %x %x\n",a,b,c,d);
         return (a & 0xFF)<<24 | (b & 0xFF)<<16 | (c & 0xFF)<<8 | (d & 0xFF);
     }
 
@@ -24,15 +23,6 @@ public class decompress {
         return ans;
     }
 
-    public static void dfs(int x,int p){
-        if(x < 256){
-            //System.out.printf("%d %d\n",x,p);
-            return;
-        }
-        dfs(ls[x], p*2);
-        dfs(rs[x], p*2+1);
-    }
-
     public static void work(String input, String output) {
         try {
             RandomAccessFile file = new RandomAccessFile(input, "rw");
@@ -42,11 +32,6 @@ public class decompress {
             try {
                 ByteBuffer buffer = ByteBuffer.allocate(4);
                 ByteBuffer obuffer = ByteBuffer.allocate(1024*1024*200);
-//                int bbb = channel.read(buffer);
-//                System.out.println(bbb);
-//                bbb = channel.read(buffer);
-//                System.out.println(bbb);
-//                if(true)return;
                 channel.read(buffer);
                 buffer.flip();
                 t_num = bytes2int(buffer.get(), buffer.get(), buffer.get(), buffer.get());
@@ -68,8 +53,6 @@ public class decompress {
                     rs[x] = bytes2int(buffer.get(), buffer.get(), buffer.get(), buffer.get());
                     buffer.clear();
                 }
-                //dfs(root,0);
-
                 int now = root, sum = 0;
                 buffer = ByteBuffer.allocate(1024*1024*200);
                 while (channel.read(buffer) > 0){
@@ -90,7 +73,6 @@ public class decompress {
                                 obuffer.flip();
                                 ochanel.write(obuffer);
                                 obuffer.clear();
-                                //System.out.println("fuck");
                             }
                         }
                     }
@@ -108,66 +90,9 @@ public class decompress {
             System.out.println("File not Found");
         }
     }
-
-    public static void debug() throws Exception{
-        try {
-            RandomAccessFile a = new RandomAccessFile("C:\\Users\\daiyuchun\\Desktop\\pj1\\Test Cases\\test1 - single file\\1.txt", "rw");
-            RandomAccessFile b = new RandomAccessFile("C:\\Users\\daiyuchun\\Desktop\\pj1\\Test Cases\\test1 - single file\\1.txt.test.txt", "rw");
-            FileChannel aa = a.getChannel();
-            FileChannel bb = b.getChannel();
-            ByteBuffer aaa = ByteBuffer.allocate(1);
-            ByteBuffer bbb = ByteBuffer.allocate(1);
-            int num = 0;
-            while (true) {
-                try {
-                    aa.read(aaa);
-                    bb.read(bbb);
-                    aaa.flip();
-                    bbb.flip();
-                    byte x = aaa.get(), y = bbb.get();
-                    aaa.clear();
-                    bbb.clear();
-                    if (x != y) {
-                        System.out.printf("%d %s %s\n",num, bytetobits(x), bytetobits(y));
-                        //return;
-                    }
-                    num++;
-//                    if(num >= 1971){
-//                        System.out.print(bytetobits(x));
-//                        return;
-//                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-    }
-
-    public static void test() throws Exception{
-        RandomAccessFile a= new RandomAccessFile("a.txt", "rw");
-        FileChannel channel= a.getChannel();
-        byte[] b= new byte[]{
-                (byte)(1),(byte)(1),(byte)(1),(byte)(1)
-        };
-        ByteBuffer buffer = ByteBuffer.wrap(b);
-        //buffer.flip();
-        buffer.get();
-        buffer.get();
-        buffer.get();
-        buffer.get();
-        buffer.flip();
-        buffer.put((byte)1);
-        channel.write(buffer);
-        buffer.put((byte)1);
-    }
-
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args){
         String input = "C:\\Users\\daiyuchun\\Desktop\\pj1\\Test Cases\\test4 - large file\\1.zip";
         String output = "C:\\Users\\daiyuchun\\Desktop\\pj1\\Test Cases\\test4 - large file\\1test.jpg";
         work(input, output);
-//        debug();
-        //test();
     }
 }

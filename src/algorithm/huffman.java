@@ -21,8 +21,6 @@ public class huffman {
     private static int[] ls = new int[1001];
     private static int[] rs = new int[1001];
     private static int[][] code = new int[256][256];
-    private static int ans_p = 0;
-    private static byte[] ans = new byte[1024*1024*200];
 
     public static void dfs(int x, int p, int d){
         if(x < 256){
@@ -30,11 +28,6 @@ public class huffman {
             for(int i=1; i<=d; i++){
                 code[x][i] = (p>>(d-i)) & 1; //从高位到低位
             }
-//            System.out.printf("%d ", x);
-//            for(int i=0; i<=d; i++){
-//                System.out.printf("%d ", code[x][i]);
-//            }
-//            System.out.printf("\n");
             return;
         }
         t_num++;
@@ -52,8 +45,6 @@ public class huffman {
                 (byte)((x>>8) & 0xFF),
                 (byte)((x) & 0xFF)
         };
-        //System.out.println(x);
-        //System.out.printf("%x %x %x %x\n", ans[0], ans[1], ans[2], ans[3]);
         return ans;
     }
 
@@ -77,10 +68,8 @@ public class huffman {
             }catch (IOException e){
                 System.out.println("IOException");
             }
-//            for(int i=0; i<256; i++){
-//                //System.out.println(app[i]);
-//            }
-        }catch (FileNotFoundException e){
+        }
+        catch (FileNotFoundException e){
             System.out.println("File not Find");
         }
         //huffman tree
@@ -98,7 +87,7 @@ public class huffman {
             }
         }
         while (true){
-//            if(heap.size() == 0)break;
+            if(heap.size() == 0)break;
             if(heap.size() == 1){
                 root = heap.poll();
                 break;
@@ -143,8 +132,6 @@ public class huffman {
                     ibuffer.flip();
                     while (ibuffer.hasRemaining()){
                         num = ibuffer.get() & 0xFF;
-//                        System.out.println(num);
-//                        if(true)return;
                         for(int i=1; i<=code[num][0]; i++){
                             res[hav++] = code[num][i]; //继续从高位到低位
                         }
@@ -157,12 +144,9 @@ public class huffman {
                     }
                     for(int i=0; i < hav; i++){
                         if(pos==-1){
-                            ans[ans_p++] = ret[cnt];
                             cnt++;
                             pos = 7;
                             ret[cnt] = 0;
-//                            System.out.printf("%x",ret[cnt-1]);
-//                            if(true)return;
                         }
                         ret[cnt] |= (res[i] << pos);
                         pos--;
@@ -174,8 +158,6 @@ public class huffman {
                         for(int i=num_rem; i>=1; i--){
                             rem[i-1] = res[hav-1-num_rem+i];
                         }
-                    }else {
-                        ans[ans_p++] = ret[cnt];
                     }
                     obuffer = ByteBuffer.wrap(ret, 0, cnt+1);
                     ochanel.write(obuffer);
@@ -185,7 +167,6 @@ public class huffman {
                     for(int i=0; i<num_rem; i++){
                         ret[0] |= (rem[i]<<(7-i));
                     }
-                    ans[ans_p++] = ret[0];
                     obuffer = ByteBuffer.wrap(ret, 0, 1);
                     ochanel.write(obuffer);
                 }
@@ -196,34 +177,9 @@ public class huffman {
             System.out.println("File not found");
         }
     }
-
-    public static void test (String input)throws Exception{
-        RandomAccessFile out = new RandomAccessFile(input+".test.txt", "rw");
-        FileChannel outc = out.getChannel();
-        ByteBuffer outbuf = ByteBuffer.allocate(1024*1024*200);
-        int now = root, sum=0;
-        for(int i=0; i<ans_p; i++){
-            for(int j=7; j>=0; j--){
-                if(((ans[i]>>j)&1) == 1)now = rs[now];
-                else now = ls[now];
-                if(now < 256){
-                    sum++;
-                    if(sum <= hav_bytes){
-                        outbuf.put((byte)(now));
-                    }
-                    now = root;
-                }
-            }
-        }
-        outbuf.flip();
-        outc.write(outbuf);
-        outbuf.clear();
-    }
-
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args){
         String input_file="C:\\Users\\daiyuchun\\Desktop\\pj1\\Test Cases\\test4 - large file\\1.jpg";
         String output_dir="C:\\Users\\daiyuchun\\Desktop\\pj1\\Test Cases\\test4 - large file\\1.zip";
         work(input_file, output_dir);
-        //test(input_file);
     }
 }
