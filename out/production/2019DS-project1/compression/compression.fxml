@@ -30,6 +30,7 @@
                   <Font size="16.0" />
                </font>
             </JFXButton>
+            <Text fx:id="time_con" layoutX="327.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="123.240234375" />
          </children>
       </AnchorPane>
    </children>

@@ -1,10 +1,7 @@
 package compression;
 import algorithm.huffman;
 import algorithm.dir_compress;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.*;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +26,7 @@ public class compressionController implements Initializable {
     public JFXTextArea filepath;
     public JFXTextArea topath;
     public StackPane stackPane;
+    public Text time_con;
     @FXML
     AnchorPane anchor;
 
@@ -84,6 +82,7 @@ public class compressionController implements Initializable {
             dialogLayout.setActions(button);
             dialog.show();
         }else {
+            long start_time = System.currentTimeMillis();
             output += "\\";
             File test = new File(input);
             if(test.isDirectory()){
@@ -97,6 +96,7 @@ public class compressionController implements Initializable {
                 String zipname = output + name + ".zip";
                 huffman.work(input, zipname);
             }
+            time_con.setText("time:"+(System.currentTimeMillis() - start_time)+" ms");
         }
     }
 }

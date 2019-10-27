@@ -28,6 +28,7 @@ public class decompressionController implements Initializable {
     public JFXTextArea topath;
     public JFXTextArea filepath;
     public StackPane stackPane;
+    public Text time_con;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,6 +80,7 @@ public class decompressionController implements Initializable {
             dialogLayout.setActions(button);
             dialog.show();
         }else {
+            long start_time = System.currentTimeMillis();
             output += "\\";
             String[] p = input.split("\\\\");
             String name = p[p.length-1];
@@ -88,6 +90,7 @@ public class decompressionController implements Initializable {
                 String yname = name.substring(0, name.lastIndexOf("."));
                 decompress.work(input, output+yname);
             }
+            time_con.setText("time:"+(System.currentTimeMillis() - start_time)+" ms");
         }
     }
 }
