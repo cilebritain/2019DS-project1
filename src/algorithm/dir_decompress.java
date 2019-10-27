@@ -17,7 +17,6 @@ public class dir_decompress {
             FileChannel ichannel = ifile.getChannel();
             ByteBuffer ibuffer = ByteBuffer.allocate(4);
             try {
-
                 ichannel.read(ibuffer);
                 ibuffer.flip();
                 int num = decompress.bytes2int(ibuffer.get(), ibuffer.get(), ibuffer.get(), ibuffer.get());
@@ -65,10 +64,14 @@ public class dir_decompress {
                         ibuffer.clear();
                         ochannel.close();
 
-                        decompress.init();
                         decompress.work(cache+caname+".zip", output+name[i]);
                     }
                 }
+                File[] cacc = new File(cache).listFiles();
+                for(File f: cacc){
+                    f.delete();
+                }
+                ichannel.close();
             }catch (IOException e){
                 System.out.println("IOException");
             }
@@ -78,7 +81,7 @@ public class dir_decompress {
     }
     public static void main(String[] args) {
         String input = "C:\\Users\\daiyuchun\\Desktop\\pj1\\Test Cases\\test4 - large file.zip";
-        String output = "C:\\Users\\daiyuchun\\Desktop\\pj1\\Test Cases\\-";
+        String output = "C:\\Users\\daiyuchun\\Desktop\\pj1\\Test Cases\\";
         work(input, output);
     }
 }

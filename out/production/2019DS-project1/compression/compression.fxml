@@ -25,7 +25,7 @@
             </JFXButton>
             <JFXTextArea fx:id="filepath" layoutX="300.0" layoutY="129.0" prefHeight="34.0" prefWidth="207.0" />
             <JFXTextArea fx:id="topath" layoutX="300.0" layoutY="183.0" prefHeight="34.0" prefWidth="207.0" />
-            <JFXButton buttonType="RAISED" layoutX="479.0" layoutY="234.0" prefHeight="34.0" prefWidth="57.0" text="压缩">
+            <JFXButton buttonType="RAISED" layoutX="479.0" layoutY="234.0" onAction="#compress" prefHeight="34.0" prefWidth="57.0" text="压缩">
                <font>
                   <Font size="16.0" />
                </font>

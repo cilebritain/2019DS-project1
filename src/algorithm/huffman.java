@@ -53,6 +53,7 @@ public class huffman {
     }
 
     public static void work(String input,String output){
+        init();
         //key countting
         try {
             RandomAccessFile file = new RandomAccessFile(input, "rw");
@@ -174,6 +175,8 @@ public class huffman {
                     obuffer = ByteBuffer.wrap(ret, 0, 1);
                     ochanel.write(obuffer);
                 }
+                ichannel.close();
+                ochanel.close();
             }catch (IOException e){
                 System.out.println("IOException");
             }

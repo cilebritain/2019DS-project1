@@ -38,7 +38,6 @@ public class dir_compress {
                 String[] p = s.split(pat);
                 String q = p[p.length-1];
                 q = q.replace('\\','.');
-                huffman.init();
                 huffman.work(s,cache+q+".zip");
                 zzip.add(cache+q+".zip");
             }
@@ -101,10 +100,11 @@ public class dir_compress {
                     }
                     ichannel.close();
                 }
-//                File[] cacc = cac.listFiles();
-//                for (File f: cacc){
-//                    f.delete();
-//                }
+                File[] cacc = new File(cache).listFiles();
+                for (File f: cacc){
+                    f.delete();
+                }
+                ochanel.close();
             }catch (IOException e){
                 System.out.println("IOException");
             }

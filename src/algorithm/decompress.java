@@ -21,6 +21,7 @@ public class decompress {
     }
 
     public static void work(String input, String output) {
+        init();
         try {
             RandomAccessFile file = new RandomAccessFile(input, "rw");
             RandomAccessFile ofile = new RandomAccessFile(output, "rw");
@@ -80,6 +81,8 @@ public class decompress {
                     ochanel.write(obuffer);
                     obuffer.clear();
                 }
+                channel.close();
+                ochanel.close();
             } catch (IOException e){
                 System.out.println("IOException");
             }
