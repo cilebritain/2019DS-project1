@@ -4,12 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -21,6 +16,15 @@ public class huffman {
     private static int[] ls = new int[1001];
     private static int[] rs = new int[1001];
     private static int[][] code = new int[256][256];
+
+    public static void init(){
+        app = new int[1001];
+        t_num = 0; root = 0; hav_bytes = 0;
+        h_info = new int[3001];
+        ls = new int[1001];
+        rs = new int[1001];
+        code = new int[256][256];
+    }
 
     public static void dfs(int x, int p, int d){
         if(x < 256){

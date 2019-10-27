@@ -10,17 +10,14 @@ public class decompress {
     private static int[] ls = new int[1001];
     private static int[] rs = new int[1001];
 
-    public static int bytes2int(byte a, byte b, byte c, byte d){
-        return (a & 0xFF)<<24 | (b & 0xFF)<<16 | (c & 0xFF)<<8 | (d & 0xFF);
+    public static void init(){
+        t_num = 0;
+        ls = new int[1001];
+        rs = new int[1001];
     }
 
-    public static String bytetobits(byte x){
-        String ans="";
-        for(int i=7;i>=0;i--){
-            if(((x>>i)&1) ==1)ans+="1";
-            else ans+="0";
-        }
-        return ans;
+    public static int bytes2int(byte a, byte b, byte c, byte d){
+        return (a & 0xFF)<<24 | (b & 0xFF)<<16 | (c & 0xFF)<<8 | (d & 0xFF);
     }
 
     public static void work(String input, String output) {
