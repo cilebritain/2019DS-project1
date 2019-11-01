@@ -128,6 +128,7 @@ public class huffman {
             try {
                 hbuffer.flip();
                 ochanel.write(hbuffer);
+                if(hav_bytes == 0)return;
             }catch (IOException e){
                 System.out.println("IOException");
             }

@@ -20,6 +20,14 @@ public class dir_decompress {
                 ichannel.read(ibuffer);
                 ibuffer.flip();
                 int num = decompress.bytes2int(ibuffer.get(), ibuffer.get(), ibuffer.get(), ibuffer.get());
+                if(num==0){
+                    String[] p = input.split("\\\\");
+                    String q = p[p.length-1];
+                    String[] r = q.split(".zip");
+                    q = r[0];
+                    decompress.work(input,output+q);
+                    return;
+                }
                 ibuffer.clear();
                 int[] b_num = new int[num];
                 String[] name = new String[num];
@@ -43,7 +51,7 @@ public class dir_decompress {
                 for(int i=0; i<num; i++){
                     String[] p = name[i].split("\\\\");
                     String q = p[p.length-1];
-                    if(q.indexOf(".")==-1){
+                    if(q.indexOf(".")==-1&&!q.equals("empty_file")){
                         File f = new File(output + name[i]);
                         f.mkdir();
                     }

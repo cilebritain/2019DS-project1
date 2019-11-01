@@ -42,6 +42,7 @@ public class decompress {
                 buffer.flip();
                 int byte_num = bytes2int(buffer.get(), buffer.get(), buffer.get(), buffer.get());
                 buffer.clear();
+                if(byte_num == 0)return;
                 buffer = ByteBuffer.allocate(12);
                 for (int i = 1; i <= t_num; i++) {
                     channel.read(buffer);
