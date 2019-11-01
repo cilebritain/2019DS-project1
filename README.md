@@ -3,5 +3,9 @@
 
 use huffman code
 
-to be improved: io speed, stl speed
+~~to be improved: io speed, stl speed~~
+
+completed:11.1
+
+good luck in your future endeavor
 
